@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #2c6e49;
+  --primary-dark: #1e4e33;
+  --secondary: #4d908e;
+  --accent: #f77f00;
+  --light: #f8f9fa;
+  --dark: #212529;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--dark);
+  background-color: var(--light);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+}
+
+.btn-primary {
+  @apply bg-[#2c6e49] hover:bg-[#1e4e33] text-white font-medium py-2 px-6 rounded-md transition duration-300;
+}
+
+.btn-secondary {
+  @apply bg-[#4d908e] hover:bg-[#3a6e6c] text-white font-medium py-2 px-6 rounded-md transition duration-300;
+}
+
+.btn-accent {
+  @apply bg-[#f77f00] hover:bg-[#e67300] text-white font-medium py-2 px-6 rounded-md transition duration-300;
+}
+
+.btn-outline {
+  @apply border-2 border-[#2c6e49] text-[#2c6e49] hover:bg-[#2c6e49] hover:text-white font-medium py-2 px-6 rounded-md transition duration-300;
+}
+
+.section-padding {
+  @apply py-16 md:py-24;
+}
+
+.container-custom {
+  @apply container mx-auto px-4 md:px-8;
+}
+
+.page-title {
+  @apply text-4xl md:text-5xl font-bold mb-6 text-center;
+}
+
+.section-title {
+  @apply text-3xl md:text-4xl font-bold mb-6;
+}
+
+.card {
+  @apply bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg;
+}
+
+.input-field {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2c6e49] focus:border-transparent;
+}
+
+.donation-cart-icon {
+  @apply fixed bottom-6 right-6 bg-[#f77f00] text-white p-3 rounded-full shadow-lg cursor-pointer z-50 flex items-center justify-center;
+}
+
+.donation-cart-badge {
+  @apply absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center;
+}
+
+.donation-cart-panel {
+  @apply fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-xl z-50 transform transition-transform duration-300 overflow-y-auto;
+}
+
+.cart-item {
+  @apply border-b border-gray-200 py-4 px-4 flex flex-col;
+}
+
+.cart-item-header {
+  @apply flex justify-between items-start mb-2;
+}
+
+.cart-item-title {
+  @apply font-semibold text-lg;
+}
+
+.cart-item-amount {
+  @apply font-bold text-[#2c6e49];
+}
+
+.cart-item-category {
+  @apply text-sm text-gray-600 mb-2;
+}
+
+.cart-item-controls {
+  @apply flex items-center mt-2;
+}
+
+.cart-item-quantity {
+  @apply flex items-center border border-gray-300 rounded-md overflow-hidden;
+}
+
+.cart-quantity-btn {
+  @apply px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700;
+}
+
+.cart-quantity-input {
+  @apply w-16 text-center border-x border-gray-300 py-1;
+}
+
+.cart-remove-btn {
+  @apply ml-4 text-red-500 hover:text-red-700;
+}
+
+.cart-summary {
+  @apply p-4 bg-gray-50 border-t border-gray-200;
+}
+
+.cart-total {
+  @apply text-xl font-bold mb-4 flex justify-between;
+}
+
+.cart-options {
+  @apply space-y-4 mb-6;
+}
+
+.cart-option-label {
+  @apply flex items-center space-x-2 cursor-pointer;
+}
+
+.cart-payment-methods {
+  @apply space-y-2 mb-4;
+}
+
+.cart-payment-method {
+  @apply flex items-center space-x-2;
+}
+
+.cart-actions {
+  @apply space-y-3;
+}
+
+.checkout-btn {
+  @apply w-full py-3 bg-[#2c6e49] hover:bg-[#1e4e33] text-white font-medium rounded-md transition duration-300;
+}
+
+.continue-btn {
+  @apply w-full py-3 border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-100 transition duration-300;
+}
