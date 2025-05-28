@@ -9,10 +9,11 @@ export default {
       colors: {
         primary: '#2c6e49',
         'primary-dark': '#1e4e33',
-        secondary: '#4d908e',
-        accent: '#f77f00',
-        light: '#f8f9fa',
-        dark: '#212529',
+        secondary: '#f4a261',
+        accent: '#e76f51',
+        background: '#faf9f6',
+        text: '#333333',
+        'text-light': '#666666',
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],

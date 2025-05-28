@@ -1,216 +1,152 @@
-import { useState, useEffect, useRef } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
-import { FaHeart, FaBars, FaTimes, FaUser, FaChevronDown } from 'react-icons/fa'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [activeSubmenu, setActiveSubmenu] = useState(null)
-  const location = useLocation()
-  const submenuRefs = useRef({})
-
-  const toggleMenu = () => setIsOpen(!isOpen)
-  const closeMenu = () => setIsOpen(false)
-
-  // Handle scroll event to change header style
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true)
-      } else {
-        setScrolled(false)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSubmenu, setActiveSubmenu] = useState(null);
+  const location = useLocation();
 
   // Close mobile menu when route changes
   useEffect(() => {
-    closeMenu()
-    setActiveSubmenu(null)
-  }, [location])
+    setIsOpen(false);
+    setActiveSubmenu(null);
+  }, [location]);
 
-  // Close submenu when clicking outside
+  // Handle scroll effect
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (activeSubmenu && submenuRefs.current[activeSubmenu] && 
-          !submenuRefs.current[activeSubmenu].contains(event.target)) {
-        setActiveSubmenu(null)
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
       }
-    }
+    };
 
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [activeSubmenu])
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const toggleSubmenu = (name) => {
-    setActiveSubmenu(activeSubmenu === name ? null : name)
-  }
+  const toggleMenu = () => setIsOpen(!isOpen);
+  
+  const toggleSubmenu = (menu) => {
+    setActiveSubmenu(activeSubmenu === menu ? null : menu);
+  };
 
-  const navLinks = [
-    { 
-      name: 'Home', 
-      path: '/' 
-    },
+  const navItems = [
+    { name: 'Home', path: '/' },
     { 
       name: 'About', 
       path: '/about',
-      hasSubmenu: true,
       submenu: [
         { name: 'Our Mission', path: '/about#mission' },
         { name: 'Our Team', path: '/about#team' },
-        { name: 'Our History', path: '/about#history' },
-        { name: 'Annual Reports', path: '/about#reports' }
+        { name: 'Our Impact', path: '/about#impact' },
       ]
     },
     { 
       name: 'Projects', 
       path: '/projects',
-      hasSubmenu: true,
       submenu: [
-        { name: 'Food Distribution', path: '/projects/food-distribution' },
-        { name: 'Water Wells', path: '/projects/water-wells' },
-        { name: 'Orphan Care', path: '/projects/orphan-care' },
-        { name: 'Mosque Construction', path: '/projects/mosque-construction' },
-        { name: 'Emergency Relief', path: '/projects/emergency-relief' }
+        { name: 'Food Programs', path: '/projects?category=food' },
+        { name: 'Water Projects', path: '/projects?category=water' },
+        { name: 'Housing', path: '/projects?category=housing' },
+        { name: 'Orphan Care', path: '/projects?category=orphans' },
       ]
     },
-    { 
-      name: 'Donate', 
-      path: '/donate',
-      hasSubmenu: true,
-      submenu: [
-        { name: 'Zakat', path: '/donate/zakat' },
-        { name: 'Sadaqah', path: '/donate/sadaqah' },
-        { name: 'Qurbani/Udhiyah', path: '/donate/qurbani' },
-        { name: 'Sponsorships', path: '/donate/sponsorships' },
-        { name: 'Monthly Giving', path: '/donate/monthly' }
-      ]
-    },
-    { 
-      name: 'Contact', 
-      path: '/contact' 
-    },
-    { 
-      name: 'Donor Portal', 
-      path: '/donor-portal', 
-      icon: <FaUser className="mr-2" /> 
-    }
-  ]
+    { name: 'Contact', path: '/contact' },
+    { name: 'Donor Portal', path: '/donor-portal' },
+  ];
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
-      }`}
-    >
-      <div className="container flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center">
-          <FaHeart className="mr-2 text-2xl text-primary-600" />
-          <span className="text-xl font-bold font-serif">
-            <span className="text-primary-600">Ihsan</span> Charity
-          </span>
-        </Link>
+    <header className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'}`}>
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center">
+          {/* Logo */}
+          <Link to="/" className="flex items-center">
+            <img 
+              src="/src/assets/favicon.svg" 
+              alt="Ihsan Charity Foundation" 
+              className="h-10 w-10 mr-2"
+            />
+            <span className={`font-serif text-xl font-bold ${scrolled ? 'text-primary' : 'text-white'}`}>
+              Ihsan Charity
+            </span>
+          </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:block">
-          <ul className="flex items-center space-x-6">
-            {navLinks.map((link) => (
-              <li key={link.name} className="relative">
-                {link.name === 'Donor Portal' ? (
-                  <Link 
-                    to={link.path}
-                    className="flex items-center px-3 py-2 text-gray-700 transition-colors border border-gray-300 rounded-md hover:bg-gray-50"
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-1">
+            {navItems.map((item) => (
+              <div key={item.name} className="relative group">
+                {item.submenu ? (
+                  <button 
+                    className={`px-3 py-2 rounded-md font-medium flex items-center ${
+                      location.pathname === item.path 
+                        ? 'text-primary' 
+                        : scrolled ? 'text-gray-700 hover:text-primary' : 'text-white hover:text-gray-200'
+                    }`}
+                    onClick={() => toggleSubmenu(item.name)}
                   >
-                    {link.icon}
-                    <span>{link.name}</span>
-                  </Link>
-                ) : link.hasSubmenu ? (
-                  <div 
-                    ref={el => submenuRefs.current[link.name] = el}
-                    className="relative"
-                  >
-                    <button
-                      className={`flex items-center text-base font-medium transition-colors hover:text-primary-600 ${
-                        activeSubmenu === link.name ? 'text-primary-600' : scrolled ? 'text-gray-800' : 'text-gray-800'
-                      }`}
-                      onClick={() => toggleSubmenu(link.name)}
-                      aria-expanded={activeSubmenu === link.name}
-                    >
-                      {link.name}
-                      <FaChevronDown className={`ml-1 text-xs transition-transform ${
-                        activeSubmenu === link.name ? 'rotate-180' : ''
-                      }`} />
-                    </button>
-                    <AnimatePresence>
-                      {activeSubmenu === link.name && (
-                        <motion.div
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -10 }}
-                          transition={{ duration: 0.2 }}
-                          className="absolute left-0 z-50 w-56 mt-2 bg-white rounded-md shadow-lg"
-                        >
-                          <ul className="py-2">
-                            {link.submenu.map((subItem) => (
-                              <li key={subItem.name}>
-                                <Link
-                                  to={subItem.path}
-                                  className="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 hover:text-primary-600"
-                                >
-                                  {subItem.name}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
+                    {item.name}
+                    <FaChevronDown className="ml-1 h-3 w-3" />
+                  </button>
                 ) : (
                   <NavLink 
-                    to={link.path}
-                    className={({ isActive }) => 
-                      `text-base font-medium transition-colors hover:text-primary-600 ${
-                        isActive ? 'text-primary-600' : scrolled ? 'text-gray-800' : 'text-gray-800'
-                      }`
-                    }
+                    to={item.path}
+                    className={({ isActive }) => `px-3 py-2 rounded-md font-medium ${
+                      isActive 
+                        ? 'text-primary' 
+                        : scrolled ? 'text-gray-700 hover:text-primary' : 'text-white hover:text-gray-200'
+                    }`}
                   >
-                    {link.name}
+                    {item.name}
                   </NavLink>
                 )}
-              </li>
-            ))}
-            <li>
-              <Link 
-                to="/donate" 
-                className="btn btn-primary"
-              >
-                Donate Now
-              </Link>
-            </li>
-          </ul>
-        </nav>
 
-        {/* Mobile Menu Button */}
-        <button 
-          className="p-2 md:hidden" 
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? (
-            <FaTimes className="text-2xl text-gray-800" />
-          ) : (
-            <FaBars className="text-2xl text-gray-800" />
-          )}
-        </button>
+                {/* Submenu */}
+                {item.submenu && (
+                  <div className="absolute left-0 mt-1 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300">
+                    {item.submenu.map((subitem) => (
+                      <NavLink
+                        key={subitem.name}
+                        to={subitem.path}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary hover:text-white"
+                      >
+                        {subitem.name}
+                      </NavLink>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {/* Donate Button */}
+            <Link 
+              to="/donate"
+              className="ml-4 px-4 py-2 bg-accent hover:bg-opacity-90 text-white font-medium rounded-md transition-colors"
+            >
+              Donate Now
+            </Link>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden p-2 rounded-md focus:outline-none"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? (
+              <FaTimes className={scrolled ? 'text-gray-800' : 'text-white'} size={24} />
+            ) : (
+              <FaBars className={scrolled ? 'text-gray-800' : 'text-white'} size={24} />
+            )}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -218,88 +154,66 @@ const Header = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white"
+            className="md:hidden bg-white shadow-lg"
           >
-            <div className="container py-4">
-              <ul className="flex flex-col space-y-4">
-                {navLinks.map((link) => (
-                  <li key={link.name}>
-                    {link.name === 'Donor Portal' ? (
-                      <Link 
-                        to={link.path}
-                        className="flex items-center justify-center w-full py-3 text-gray-700 transition-colors border border-gray-300 rounded-md hover:bg-gray-50"
+            <div className="container mx-auto px-4 py-3">
+              {navItems.map((item) => (
+                <div key={item.name} className="py-1">
+                  {item.submenu ? (
+                    <div>
+                      <button 
+                        className="w-full flex justify-between items-center py-2 text-gray-800 font-medium"
+                        onClick={() => toggleSubmenu(item.name)}
                       >
-                        {link.icon}
-                        <span>{link.name}</span>
-                      </Link>
-                    ) : link.hasSubmenu ? (
-                      <div>
-                        <button
-                          className={`flex items-center justify-between w-full py-2 text-base font-medium transition-colors ${
-                            activeSubmenu === link.name ? 'text-primary-600' : 'text-gray-800 hover:text-primary-600'
-                          }`}
-                          onClick={() => toggleSubmenu(link.name)}
-                          aria-expanded={activeSubmenu === link.name}
-                        >
-                          {link.name}
-                          <FaChevronDown className={`ml-1 text-xs transition-transform ${
-                            activeSubmenu === link.name ? 'rotate-180' : ''
-                          }`} />
-                        </button>
-                        <AnimatePresence>
-                          {activeSubmenu === link.name && (
-                            <motion.div
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: 'auto' }}
-                              exit={{ opacity: 0, height: 0 }}
-                              transition={{ duration: 0.2 }}
-                              className="mt-2 ml-4 border-l-2 border-gray-200"
-                            >
-                              <ul className="pl-4">
-                                {link.submenu.map((subItem) => (
-                                  <li key={subItem.name}>
-                                    <Link
-                                      to={subItem.path}
-                                      className="block py-2 text-sm text-gray-700 transition-colors hover:text-primary-600"
-                                    >
-                                      {subItem.name}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    ) : (
-                      <NavLink 
-                        to={link.path}
-                        className={({ isActive }) => 
-                          `block py-2 text-base font-medium transition-colors ${
-                            isActive ? 'text-primary-600' : 'text-gray-800 hover:text-primary-600'
-                          }`
-                        }
-                      >
-                        {link.name}
-                      </NavLink>
-                    )}
-                  </li>
-                ))}
-                <li>
-                  <Link 
-                    to="/donate" 
-                    className="block w-full py-3 text-center btn btn-primary"
-                  >
-                    Donate Now
-                  </Link>
-                </li>
-              </ul>
+                        {item.name}
+                        <FaChevronDown className={`ml-1 h-3 w-3 transition-transform ${activeSubmenu === item.name ? 'rotate-180' : ''}`} />
+                      </button>
+                      
+                      <AnimatePresence>
+                        {activeSubmenu === item.name && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="pl-4 border-l-2 border-primary ml-2"
+                          >
+                            {item.submenu.map((subitem) => (
+                              <NavLink
+                                key={subitem.name}
+                                to={subitem.path}
+                                className="block py-2 text-gray-600 hover:text-primary"
+                              >
+                                {subitem.name}
+                              </NavLink>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <NavLink 
+                      to={item.path}
+                      className={({ isActive }) => `block py-2 ${isActive ? 'text-primary font-medium' : 'text-gray-800'}`}
+                    >
+                      {item.name}
+                    </NavLink>
+                  )}
+                </div>
+              ))}
+              
+              <Link 
+                to="/donate"
+                className="block w-full text-center mt-4 px-4 py-2 bg-accent hover:bg-opacity-90 text-white font-medium rounded-md transition-colors"
+              >
+                Donate Now
+              </Link>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

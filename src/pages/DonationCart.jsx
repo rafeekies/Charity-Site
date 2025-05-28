@@ -215,7 +215,7 @@ const DonationCart = () => {
                           onChange={() => setDonationFor({ type: 'behalf', name: honoreeNameInput })}
                           className="w-5 h-5 text-primary-600 border-gray-300 focus:ring-primary-500"
                         />
-                        <span className="ml-2">Donate on behalf of someone</span>
+                        <span className="ml-2">Donate in honor of someone</span>
                       </label>
                       
                       <label className="flex items-center">

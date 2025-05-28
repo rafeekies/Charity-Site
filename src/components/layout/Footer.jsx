@@ -1,123 +1,136 @@
-import { Link } from 'react-router-dom'
-import { FaHeart, FaFacebookF, FaTwitter, FaInstagram, FaYoutube, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa'
+import { Link } from 'react-router-dom';
+import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube, FaLinkedinIn, FaHeart, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="container">
-        {/* Main Footer */}
-        <div className="grid grid-cols-1 gap-12 py-16 md:grid-cols-2 lg:grid-cols-4">
-          {/* Column 1 - About */}
+    <footer className="bg-primary text-white pt-16 pb-8">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* About Section */}
           <div>
-            <Link to="/" className="flex items-center mb-6">
-              <FaHeart className="mr-2 text-2xl text-primary-500" />
-              <span className="text-xl font-bold font-serif">
-                <span className="text-primary-500">Ihsan</span> Charity
-              </span>
-            </Link>
-            <p className="mb-6 text-gray-400">
-              Dedicated to providing humanitarian aid and sustainable development to communities in need around the world.
+            <h3 className="text-xl font-serif font-bold mb-4">Ihsan Charity Foundation</h3>
+            <p className="text-gray-200 mb-4">
+              Dedicated to providing humanitarian aid and sustainable development projects to those in need around the world.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="p-2 text-gray-400 transition-colors rounded-full hover:text-white hover:bg-primary-600">
+            <div className="flex space-x-3">
+              <a href="#" className="bg-white bg-opacity-20 hover:bg-opacity-30 p-2 rounded-full transition-colors">
                 <FaFacebookF />
               </a>
-              <a href="#" className="p-2 text-gray-400 transition-colors rounded-full hover:text-white hover:bg-primary-600">
+              <a href="#" className="bg-white bg-opacity-20 hover:bg-opacity-30 p-2 rounded-full transition-colors">
                 <FaTwitter />
               </a>
-              <a href="#" className="p-2 text-gray-400 transition-colors rounded-full hover:text-white hover:bg-primary-600">
+              <a href="#" className="bg-white bg-opacity-20 hover:bg-opacity-30 p-2 rounded-full transition-colors">
                 <FaInstagram />
               </a>
-              <a href="#" className="p-2 text-gray-400 transition-colors rounded-full hover:text-white hover:bg-primary-600">
+              <a href="#" className="bg-white bg-opacity-20 hover:bg-opacity-30 p-2 rounded-full transition-colors">
                 <FaYoutube />
+              </a>
+              <a href="#" className="bg-white bg-opacity-20 hover:bg-opacity-30 p-2 rounded-full transition-colors">
+                <FaLinkedinIn />
               </a>
             </div>
           </div>
 
-          {/* Column 2 - Quick Links */}
+          {/* Quick Links */}
           <div>
-            <h3 className="mb-6 text-lg font-bold">Quick Links</h3>
-            <ul className="space-y-3">
+            <h3 className="text-xl font-serif font-bold mb-4">Quick Links</h3>
+            <ul className="space-y-2">
               <li>
-                <Link to="/about" className="text-gray-400 transition-colors hover:text-primary-500">About Us</Link>
+                <Link to="/about" className="text-gray-200 hover:text-white transition-colors">About Us</Link>
               </li>
               <li>
-                <Link to="/projects" className="text-gray-400 transition-colors hover:text-primary-500">Our Projects</Link>
+                <Link to="/projects" className="text-gray-200 hover:text-white transition-colors">Our Projects</Link>
               </li>
               <li>
-                <Link to="/donate" className="text-gray-400 transition-colors hover:text-primary-500">Ways to Donate</Link>
+                <Link to="/donate" className="text-gray-200 hover:text-white transition-colors">Ways to Donate</Link>
               </li>
               <li>
-                <Link to="/contact" className="text-gray-400 transition-colors hover:text-primary-500">Contact Us</Link>
+                <Link to="/contact" className="text-gray-200 hover:text-white transition-colors">Contact Us</Link>
               </li>
               <li>
-                <Link to="#" className="text-gray-400 transition-colors hover:text-primary-500">Volunteer</Link>
-              </li>
-              <li>
-                <Link to="#" className="text-gray-400 transition-colors hover:text-primary-500">Privacy Policy</Link>
+                <Link to="/donor-portal" className="text-gray-200 hover:text-white transition-colors">Donor Portal</Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 3 - Our Causes */}
+          {/* Programs */}
           <div>
-            <h3 className="mb-6 text-lg font-bold">Our Causes</h3>
-            <ul className="space-y-3">
+            <h3 className="text-xl font-serif font-bold mb-4">Our Programs</h3>
+            <ul className="space-y-2">
               <li>
-                <Link to="/projects/food" className="text-gray-400 transition-colors hover:text-primary-500">Food Distribution</Link>
+                <Link to="/projects?category=food" className="text-gray-200 hover:text-white transition-colors">Food Programs</Link>
               </li>
               <li>
-                <Link to="/projects/water" className="text-gray-400 transition-colors hover:text-primary-500">Clean Water Wells</Link>
+                <Link to="/projects?category=water" className="text-gray-200 hover:text-white transition-colors">Clean Water</Link>
               </li>
               <li>
-                <Link to="/projects/housing" className="text-gray-400 transition-colors hover:text-primary-500">Housing Projects</Link>
+                <Link to="/projects?category=housing" className="text-gray-200 hover:text-white transition-colors">Housing Projects</Link>
               </li>
               <li>
-                <Link to="/projects/orphans" className="text-gray-400 transition-colors hover:text-primary-500">Orphan Care</Link>
+                <Link to="/projects?category=orphans" className="text-gray-200 hover:text-white transition-colors">Orphan Care</Link>
               </li>
               <li>
-                <Link to="/projects/mosques" className="text-gray-400 transition-colors hover:text-primary-500">Mosque Construction</Link>
+                <Link to="/projects?category=education" className="text-gray-200 hover:text-white transition-colors">Education</Link>
               </li>
               <li>
-                <Link to="/projects/education" className="text-gray-400 transition-colors hover:text-primary-500">Education Programs</Link>
+                <Link to="/projects?category=emergency" className="text-gray-200 hover:text-white transition-colors">Emergency Relief</Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 4 - Contact */}
+          {/* Contact Info */}
           <div>
-            <h3 className="mb-6 text-lg font-bold">Contact Us</h3>
-            <ul className="space-y-4">
-              <li className="flex">
-                <FaMapMarkerAlt className="mt-1 mr-3 text-primary-500" />
-                <span className="text-gray-400">123 Charity Lane, Compassion City, CC 12345</span>
+            <h3 className="text-xl font-serif font-bold mb-4">Contact Us</h3>
+            <ul className="space-y-3">
+              <li className="flex items-start">
+                <FaMapMarkerAlt className="mt-1 mr-3 text-secondary" />
+                <span>123 Charity Lane, Suite 101<br />Houston, TX 77001</span>
               </li>
-              <li className="flex">
-                <FaPhone className="mt-1 mr-3 text-primary-500" />
-                <span className="text-gray-400">+1 (555) 123-4567</span>
+              <li className="flex items-center">
+                <FaPhone className="mr-3 text-secondary" />
+                <span>(123) 456-7890</span>
               </li>
-              <li className="flex">
-                <FaEnvelope className="mt-1 mr-3 text-primary-500" />
-                <span className="text-gray-400">info@ihsancharity.org</span>
+              <li className="flex items-center">
+                <FaEnvelope className="mr-3 text-secondary" />
+                <span>info@ihsancharity.org</span>
               </li>
             </ul>
-            <div className="mt-6">
-              <Link to="/donate" className="btn btn-primary">Donate Now</Link>
-            </div>
           </div>
         </div>
 
+        {/* Donation CTA */}
+        <div className="mt-12 mb-8 py-6 px-6 bg-white bg-opacity-10 rounded-lg text-center">
+          <h3 className="text-2xl font-serif font-bold mb-3">Make a Difference Today</h3>
+          <p className="text-gray-200 mb-4">Your donation can change lives and bring hope to those who need it most.</p>
+          <Link 
+            to="/donate" 
+            className="inline-block bg-secondary hover:bg-opacity-90 text-white font-medium px-6 py-3 rounded-md transition-colors"
+          >
+            Donate Now
+          </Link>
+        </div>
+
         {/* Bottom Footer */}
-        <div className="py-6 text-center border-t border-gray-800">
-          <p className="text-gray-500">
-            &copy; {currentYear} Ihsan Charity Foundation. All rights reserved.
+        <div className="pt-8 mt-8 border-t border-white border-opacity-20 text-center text-gray-300 text-sm">
+          <p className="mb-2">
+            Ihsan Charity Foundation is a registered 501(c)(3) nonprofit organization. EIN: 12-3456789
+          </p>
+          <div className="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-4">
+            <p>&copy; {currentYear} Ihsan Charity Foundation. All rights reserved.</p>
+            <div className="flex space-x-4">
+              <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+              <Link to="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
+            </div>
+          </div>
+          <p className="mt-4 flex items-center justify-center text-xs">
+            Made with <FaHeart className="mx-1 text-accent" /> for humanity
           </p>
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

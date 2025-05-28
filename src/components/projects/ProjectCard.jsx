@@ -1,68 +1,60 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaMapMarkerAlt, FaArrowRight } from 'react-icons/fa';
-import AddToDonationCart from '../donation/AddToDonationCart';
+import { FaRegHeart } from 'react-icons/fa';
 
-const ProjectCard = ({ project, index }) => {
-  const percentage = Math.round((project.raised / project.goal) * 100);
+const ProjectCard = ({ project }) => {
+  const { id, title, category, image, description, raised, goal, donorCount } = project;
+  
+  // Calculate progress percentage
+  const progress = Math.min(Math.round((raised / goal) * 100), 100);
   
   return (
-    <motion.div
+    <motion.div 
+      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+      whileHover={{ y: -5 }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="overflow-hidden bg-white rounded-lg shadow-md"
+      transition={{ duration: 0.3 }}
     >
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative">
         <img 
-          src={project.image} 
-          alt={project.title} 
-          className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
+          src={image} 
+          alt={title} 
+          className="w-full h-48 object-cover"
         />
-        <div className="absolute top-0 left-0 px-3 py-1 m-3 text-xs font-medium text-white rounded-full bg-primary-600">
-          {project.category}
+        <div className="absolute top-4 left-4 bg-primary text-white text-xs font-semibold px-2 py-1 rounded">
+          {category}
         </div>
+        <button className="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors">
+          <FaRegHeart className="text-primary" />
+        </button>
       </div>
       
-      <div className="p-5">
-        <div className="flex items-center mb-2 text-sm text-gray-500">
-          <FaMapMarkerAlt className="mr-1" />
-          <span>{project.location}</span>
+      <div className="p-4">
+        <h3 className="text-lg font-semibold mb-2 text-gray-800 line-clamp-1">{title}</h3>
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2">{description}</p>
+        
+        <div className="mb-3">
+          <div className="flex justify-between text-sm mb-1">
+            <span className="font-medium">${raised.toLocaleString()} raised</span>
+            <span className="text-gray-500">Goal: ${goal.toLocaleString()}</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div 
+              className="bg-primary h-2 rounded-full" 
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
         </div>
         
-        <h3 className="mb-2 text-xl font-bold">
-          <Link to={`/projects/${project.id}`} className="transition-colors hover:text-primary-600">
-            {project.title}
-          </Link>
-        </h3>
-        
-        <p className="mb-4 text-gray-600 line-clamp-2">
-          {project.description}
-        </p>
-        
-        {/* Progress bar */}
-        <div className="w-full h-2 mb-2 bg-gray-200 rounded-full">
-          <div 
-            className="h-2 rounded-full bg-primary-500" 
-            style={{ width: `${percentage}%` }}
-          ></div>
-        </div>
-        
-        <div className="flex items-center justify-between mb-4 text-sm">
-          <span className="font-medium text-gray-600">Raised: ${project.raised.toLocaleString()}</span>
-          <span className="font-medium text-gray-800">Goal: ${project.goal.toLocaleString()}</span>
-        </div>
-        
-        <div className="flex flex-col gap-2">
+        <div className="flex justify-between items-center">
+          <span className="text-xs text-gray-500">{donorCount} donors</span>
           <Link 
-            to={`/projects/${project.id}`} 
-            className="inline-flex items-center justify-center w-full px-4 py-2 font-medium text-white transition-colors rounded-md bg-primary-600 hover:bg-primary-700"
+            to={`/projects/${id}`}
+            className="bg-primary hover:bg-primary-dark text-white text-sm font-medium py-2 px-4 rounded transition-colors"
           >
-            View Project
-            <FaArrowRight className="ml-2" />
+            Donate Now
           </Link>
-          
-          <AddToDonationCart project={project} />
         </div>
       </div>
     </motion.div>
